@@ -1,4 +1,4 @@
-# Docker-laravel
+# Exchange-rates
 
 ## Get started
 
