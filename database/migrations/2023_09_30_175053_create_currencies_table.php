@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('currencies', function (Blueprint $table) {
-            $table->unsignedInteger('id')->primary();
+            $table->string('id', 10)->primary();
             $table->string('code')->unique();
             $table->string('name');
         });

@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('currency_rates', function (Blueprint $table) {
-            $table->unsignedInteger('currency_id');
+            $table->string('currency_id', 10);
             $table->date('date');
             $table->decimal('rate', 10, 4);
             $table->string('base_currency_code')->default('RUR');
