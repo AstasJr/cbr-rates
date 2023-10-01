@@ -12,9 +12,6 @@ class SetupProject extends Command
 
     public function handle()
     {
-        $this->info('Installing dependencies...');
-        $this->call('composer install');
-
         $this->info('Generating app key...');
         $this->call('key:generate');
 
