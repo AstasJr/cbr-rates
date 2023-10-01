@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Log;
 
 class FetchCurrencyRate extends Command
 {
-    protected $signature = 'fetch:currency-rate {days=3 : Number of days to fetch}';
+    protected $signature = 'fetch:currency-rate {days=180 : Number of days to fetch}';
 
-    protected $description = 'Command description';
+    protected $description = 'Fetch currency rates';
 
     public function handle(): void
     {

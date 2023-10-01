@@ -10,23 +10,27 @@ cp .env.example .env
 ```
 docker-compose up -d
 ```
-3. Установите зависимости из app контейнера
+3. Установите проект
 ```
-composer install
+docker-compose exec app php artisan setup:project
 ```
-4. Сгенерируйте ключ приложения
+
+## Fetch currencies
+
+1. Зайдите в app контейнер
 ```
-php artisan key:generate
+docker-compose exec app bash
 ```
-5. Установите миграции
-```
-php artisan migrate
-```
-6. Запустите команду получения списка валют
-```
-php artisan fetch:currencies
-```
-7. Запустите redis
+2. Запустите redis
 ```
 php artisan queue:work redis > /dev/null 2>&1 &
 ```
+3. Запустите команду получения списка валют
+```
+php artisan fetch:currencies
+```
+4. Запустить команду получения курсов валют (5 - необязательный параметр, количество дней)
+```
+php artisan fetch:currency-rate 5
+```
+По умолчанию команда заполняет курсы валют за 180 дней

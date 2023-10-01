@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Currency;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -9,7 +10,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\DB;
 
 class FetchAndStoreCurrencies implements ShouldQueue
 {
@@ -34,10 +34,10 @@ class FetchAndStoreCurrencies implements ShouldQueue
             $code = (string)$valute->CharCode;
             $name = (string)$valute->Name;
 
-            $existingCurrency = DB::table('currencies')->where('code', $code)->first();
+            $existingCurrency = Currency::where('code', $code)->first();
 
             if (!$existingCurrency) {
-                DB::table('currencies')->updateOrInsert(
+                Currency::updateOrInsert(
                     ['id' => $id],
                     ['code' => $code, 'name' => $name]
                 );

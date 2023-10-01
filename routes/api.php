@@ -10,4 +10,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/currencies', [CurrencyController::class, 'index']);
-Route::get('/currencyRates', [CurrencyRateController::class, 'index']);
+Route::get('/currencyRate', [CurrencyRateController::class, 'index']);

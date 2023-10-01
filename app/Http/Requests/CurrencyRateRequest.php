@@ -9,8 +9,9 @@ class CurrencyRateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date_format:Y-m-d',
-            'code' => 'required|string|max:10',
+            'date' => ['required', 'date_format:Y-m-d'],
+            'currencyCode' => ['required', 'string', 'max:10'],
+            'baseCurrencyCode' => ['sometimes', 'string', 'max:10'],
         ];
     }
 }
