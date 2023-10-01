@@ -1,0 +1,160 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Currency Exchange API",
+        "description": "Currencies from cbr.ru",
+        "contact": {
+            "email": "astasjob@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/currencies": {
+            "get": {
+                "tags": [
+                    "Currencies"
+                ],
+                "summary": "Список валют",
+                "description": "Получить список валют с кодами и названиями",
+                "operationId": "getCurrenciesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "description": "Currency ID",
+                                                "type": "string",
+                                                "example": "R01010"
+                                            },
+                                            "code": {
+                                                "description": "Currency Code",
+                                                "type": "string",
+                                                "example": "AUD"
+                                            },
+                                            "name": {
+                                                "description": "Currency Name",
+                                                "type": "string",
+                                                "example": "Австралийский доллар"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No currencies found"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/api/currencyRate": {
+            "get": {
+                "tags": [
+                    "CurrencyRate"
+                ],
+                "summary": "Курс валюты",
+                "description": "Получить курс валюты за определенную дату",
+                "operationId": "getCurrencyRate",
+                "parameters": [
+                    {
+                        "name": "currencyCode",
+                        "in": "query",
+                        "description": "Код валюты. Можно получить в методе /api/currencies",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "USD"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Дата за которую надо получить курс валюты, максимум 179 дней назад",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-09-29"
+                        }
+                    },
+                    {
+                        "name": "baseCurrencyCode",
+                        "in": "query",
+                        "description": "Базовый код валюты, по умолчанию RUR",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "EUR"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "value": {
+                                            "description": "The currency rate value",
+                                            "type": "number",
+                                            "example": 0.9501
+                                        },
+                                        "diff": {
+                                            "description": "The difference from the previous rate",
+                                            "type": "number",
+                                            "example": 0.0049
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Валюта не найдена"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Произошла внутренняя ошибка"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
