@@ -99,7 +99,7 @@ class CurrencyRateController extends Controller
             $rate->diff = round($diff, 4);
 
             $baseCurrencyRate = 1;
-            if ($request->has('baseCurrencyCode')) {
+            if ($request->has('baseCurrencyCode') && $request->input('baseCurrencyCode') !== 'RUR') {
                 $baseCurrencyCode = $request->input('baseCurrencyCode');
                 $baseCurrency = $this->repository->getCurrencyByCode($baseCurrencyCode);
 
